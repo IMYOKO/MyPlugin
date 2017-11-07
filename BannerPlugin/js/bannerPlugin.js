@@ -19,13 +19,16 @@
 	function BannerPulgin(ele, opt) {
 		this.$element = ele,
 		this.defaults = {
-			images: [], 
+			images: [],
 			controller: {
 				view: '.banner-view',
 				btn: '.banner-btn',
 				num: '.banner-number',
 			},
-			size: {},
+			size: {
+				width: '',
+				height: ''
+			},
 			auto: true,
 			fnTime: 1000
 		},
