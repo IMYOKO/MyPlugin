@@ -1,8 +1,25 @@
+/*
+ * name: 轮播图插件
+ * author： YOKO
+ * defaults = {
+  			images : [],   必填   传入一个对象数组  对象两个属性  图片链接：imgLink 和  图片地址：imgName
+			controller : {    可填   对象    三个类名(图片容器,按钮,小圆点)
+				view : '.banner-view',
+				btn : '.banner-btn',
+				num : '.banner-number',
+			},
+			size : {}, 必填     容器图片大小
+			auto : true,  可填    是否自动播放,默认自动
+			fnTime : 1000  可填   换图的时间,默认1000毫秒
+  		}
+ */
+
 ;(function($, window, document, undefind) {
+	//构造函数BannerPulgin
 	function BannerPulgin(ele, opt) {
 		this.$element = ele,
 		this.defaults = {
-			images : [],
+			images : [], 
 			controller : {
 				view : '.banner-view',
 				btn : '.banner-btn',
@@ -13,6 +30,9 @@
 			fnTime : 1000
 		},
 		this.options =  $.extend({}, this.defaults, opt),
+		
+		this.index = 0,
+		this.timer = null,
 		this.imgWidth = this.options.size.width,
 		this.imgHegiht = this.options.size.height,
 		this.imgLenght = this.options.images.length;
@@ -21,13 +41,29 @@
 		this.$bannerBtn = $(this.options.controller.btn),
 		this.$bannerNum = $(this.options.controller.num),
 		
-		this.init()
+		this.init(this.options.auto)
 	}
+	
+	//原型扩展方法
 	BannerPulgin.prototype = {
-		init: function() {
+		//初始化
+		init: function(b) {
+			var _this = this;
 			this.creatElements();
 			this.clickBtn();
+			this.hoverFun();
+			if(b){
+				this.auto();
+				this.$element.mouseenter(function() {
+					clearInterval(_this.timer);
+				})
+				this.$element.mouseleave(function() {
+					_this.auto();
+				})
+			}
 		},
+		
+		//创建节点
 		creatElements: function() {
 			var viewHtml = '',
 				btnHtml = '',
@@ -52,32 +88,68 @@
 				height: this.imgHegiht
 			});
 		},
-		clickBtn: function(btn) {
+		
+		//自动播放
+		auto: function() {
+			var _this = this;
+			this.timer = setInterval(function() {
+				_this.change(function() {
+					_this.index ++;
+					_this.index %= _this.imgLenght;
+				})
+			}, _this.options.fnTime)
+		},
+		
+		//切换图片
+		change: function(fn) {
+			this.$bannerView.find('li').eq(this.index).removeClass('active');
+			this.$bannerNum.find('span').eq(this.index).removeClass('on');
+			fn&&fn();
+			this.$bannerView.find('li').eq(this.index).addClass('active');
+			this.$bannerNum.find('span').eq(this.index).addClass('on');
+		},
+		
+		//点击按钮
+		clickBtn: function() {
 			var _this = this;
 			this.$bannerBtn.find('span').each(function(){
 				var index = _this.$bannerView.find('li').index();
 				$(this).click(function(){
 					var btnIdex = $(this).index();
 					if(!btnIdex){
-						index--;
-						if(index<0){
-							index = _this.imgLenght - 1
-						}
-						_this.$bannerView.find('li').hide();
-						_this.$bannerView.find('li').eq(index).show();
+						_this.change(function(){
+							_this.index --;
+							if(_this.index < 0){
+								_this.index = _this.imgLenght - 1;
+							}
+						})
 					}else{
-						index++;
-						if(index>=_this.imgLenght){
-							index = 0;
-						}
-						_this.$bannerView.find('li').hide();
-						_this.$bannerView.find('li').eq(index).show();
+						_this.change(function(){
+							_this.index ++;
+							_this.index %= _this.imgLenght;
+						})
 					}
 				});
 			})
-		}
+		},
 		
+		//鼠标放小圆点
+		hoverFun: function() {
+			var _this = this;
+			this.$bannerNum.find('span').each(function(){
+				$(this).mouseover(function(){
+					var index = $(this).index();
+					_this.$bannerView.find('li').removeClass('active');
+					_this.$bannerView.find('li').eq(index).addClass('active');
+					$(this).siblings().removeClass('on');
+					$(this).addClass('on');
+					_this.index = index;
+				});
+			});
+		}
 	}
+	
+	//扩展到jQuery
 	$.fn.bannerPlugin = function(option){
 		var bannerPulgin = new BannerPulgin(this, option);
 	}
