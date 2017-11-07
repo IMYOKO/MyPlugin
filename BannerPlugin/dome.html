@@ -3,9 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>banner插件</title>
-	<link rel="stylesheet" href="css/rest.css">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/banner.css">
 </head>
 <body>
+
+<div class="banner-container" id="banner">
+	<ul class="banner-view"></ul>
+	<div class="banner-btn"></div>
+	<div class="banner-number"></div>
+</div>
 
 
 <!--js-->
@@ -13,6 +20,36 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bannerPlugin.js"></script>
 <script type="text/javascript">
+	$("#banner").bannerPlugin({
+		images : [
+			{
+				imgLink : 'https://www.baidu.com/',
+				imgName : 'images/img01.png'
+			},
+			{
+				imgLink : 'http://www.kgtmall.com/',
+				imgName : 'images/img02.png'
+			},
+			{
+				imgLink : 'javascript:;',
+				imgName : 'images/img03.png'
+			},
+			{
+				imgLink : 'javascript:;',
+				imgName : 'images/img04.png'
+			},
+			{
+				imgLink : 'javascript:;',
+				imgName : 'images/img05.png'
+			},
+		],
+		size : {
+			width: 800,
+			height: 500
+		},
+		auto : true,
+		fnTime : 1000
+	});
 	
 </script>
 <!--js end-->
