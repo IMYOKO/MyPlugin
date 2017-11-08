@@ -55,11 +55,12 @@
 			this.hoverFun();
 			if(b) {
 				this.auto();
-				this.$element.hover(function() {
+				this.$element.mouseenter(function() {
 					clearInterval(_this.timer);
-				},function() {
+				});
+				this.$element.mouseleave(function() {
 					_this.auto();
-				})
+				});
 			}
 			this.$element.hover(function() {
 				_this.$bannerBtn.animate({
