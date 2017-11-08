@@ -29,8 +29,8 @@
 				width: '',
 				height: ''
 			},
-			auto: true,
-			fnTime: 1000
+			autoPlay: true,
+			speed: 1000
 		},
 		this.options =  $.extend({}, this.defaults, opt),
 		
@@ -42,7 +42,7 @@
 		this.$bannerBtn = $(this.options.controller.btn),
 		this.$bannerNum = $(this.options.controller.num),
 		
-		this.init(this.options.auto)
+		this.init(this.options.autoPlay)
 	}
 	
 	//原型扩展方法
@@ -53,15 +53,29 @@
 			this.creatElements();
 			this.clickBtn();
 			this.hoverFun();
-			if(b){
+			if(b) {
 				this.auto();
-				this.$element.mouseenter(function() {
+				this.$element.hover(function() {
 					clearInterval(_this.timer);
-				})
-				this.$element.mouseleave(function() {
+				},function() {
 					_this.auto();
 				})
 			}
+			this.$element.hover(function() {
+				_this.$bannerBtn.animate({
+					'filter': 'alpha(opacity = 100)',
+				    '-moz-opacity': 1,
+				    '-khtml-opacity': 1,
+				    'opacity': 1
+				},300);
+			},function() {
+				_this.$bannerBtn.animate({
+					'filter': 'alpha(opacity = 0)',
+				    '-moz-opacity': 0,
+				    '-khtml-opacity': 0,
+				    'opacity': 0
+				},300);
+			})
 		},
 		
 		//创建节点
@@ -95,7 +109,7 @@
 					_this.index ++;
 					_this.index %= _this.imgLenght;
 				})
-			}, _this.options.fnTime)
+			}, _this.options.speed)
 		},
 		
 		//切换图片
@@ -137,7 +151,7 @@
 			this.$bannerNum.find('span').each(function(){
 				$(this).mouseover(function(){
 					var index = $(this).index();
-					_this.$bannerView.find('li').removeClass('active');
+					_this.$bannerView.find('li').eq(_this.index).removeClass('active');
 					_this.$bannerView.find('li').eq(index).addClass('active');
 					$(this).siblings().removeClass('on');
 					$(this).addClass('on');
