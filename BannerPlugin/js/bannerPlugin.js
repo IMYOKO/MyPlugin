@@ -115,10 +115,10 @@
 		
 		//切换图片
 		change: function(fn) {
-			this.$bannerView.find('li').eq(this.index).removeClass('active');
+			this.$bannerView.find('li').eq(this.index).fadeOut();
 			this.$bannerNum.find('span').eq(this.index).removeClass('on');
 			fn&&fn();
-			this.$bannerView.find('li').eq(this.index).addClass('active');
+			this.$bannerView.find('li').eq(this.index).fadeIn();
 			this.$bannerNum.find('span').eq(this.index).addClass('on');
 		},
 		
@@ -126,7 +126,6 @@
 		clickBtn: function() {
 			var _this = this;
 			this.$bannerBtn.find('span').each(function(){
-				var index = _this.$bannerView.find('li').index();
 				$(this).click(function(){
 					var btnIdex = $(this).index();
 					if(!btnIdex){
@@ -152,8 +151,8 @@
 			this.$bannerNum.find('span').each(function(){
 				$(this).mouseover(function(){
 					var index = $(this).index();
-					_this.$bannerView.find('li').eq(_this.index).removeClass('active');
-					_this.$bannerView.find('li').eq(index).addClass('active');
+					_this.$bannerView.find('li').eq(_this.index).fadeOut();
+					_this.$bannerView.find('li').eq(index).fadeIn();
 					$(this).siblings().removeClass('on');
 					$(this).addClass('on');
 					_this.index = index;
