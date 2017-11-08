@@ -10,7 +10,7 @@
 		},
 		size: {},  必填     容器图片大小
 		autoPlay: true,   可填    是否自动播放,默认自动
-		speed: 1000     可填   换图的时间,默认1000毫秒
+		speed: 5000     可填   换图的时间,默认5000毫秒
 	}
  */
 
@@ -30,7 +30,7 @@
 				height: ''
 			},
 			autoPlay: true,
-			speed: 1000
+			speed: 5000
 		},
 		this.options =  $.extend({}, this.defaults, opt),
 		
@@ -68,14 +68,14 @@
 				    '-moz-opacity': 1,
 				    '-khtml-opacity': 1,
 				    'opacity': 1
-				},300);
+				},500);
 			},function() {
 				_this.$bannerBtn.animate({
 					'filter': 'alpha(opacity = 0)',
 				    '-moz-opacity': 0,
 				    '-khtml-opacity': 0,
 				    'opacity': 0
-				},300);
+				},500);
 			})
 		},
 		
@@ -97,7 +97,7 @@
 			this.$bannerBtn.append(btnHtml);
 			this.$bannerNum.append(numHtml);
 			
-			this.$bannerView.find('li').eq(0).addClass('active');
+			this.$bannerView.find('li').eq(0).css('display','block');
 			this.$bannerNum.find('span').eq(0).addClass('on');
 			this.$element.css(this.options.size);
 		},
@@ -115,10 +115,10 @@
 		
 		//切换图片
 		change: function(fn) {
-			this.$bannerView.find('li').eq(this.index).fadeOut();
+			this.$bannerView.find('li').eq(this.index).fadeOut(800);
 			this.$bannerNum.find('span').eq(this.index).removeClass('on');
 			fn&&fn();
-			this.$bannerView.find('li').eq(this.index).fadeIn();
+			this.$bannerView.find('li').eq(this.index).fadeIn(800);
 			this.$bannerNum.find('span').eq(this.index).addClass('on');
 		},
 		
@@ -151,8 +151,8 @@
 			this.$bannerNum.find('span').each(function(){
 				$(this).mouseover(function(){
 					var index = $(this).index();
-					_this.$bannerView.find('li').eq(_this.index).fadeOut();
-					_this.$bannerView.find('li').eq(index).fadeIn();
+					_this.$bannerView.find('li').eq(_this.index).fadeOut(800);
+					_this.$bannerView.find('li').eq(index).fadeIn(800);
 					$(this).siblings().removeClass('on');
 					$(this).addClass('on');
 					_this.index = index;

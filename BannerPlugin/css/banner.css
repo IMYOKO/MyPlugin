@@ -25,7 +25,7 @@
 	top: 0;
 }
 .banner-view li.active {
-	display: block;
+	/*display: block;*/
 }
 .banner-view li a {
 	display: block;
