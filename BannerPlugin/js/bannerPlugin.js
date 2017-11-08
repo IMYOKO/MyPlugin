@@ -3,14 +3,14 @@
  * author： YOKO
  * defaults = {
 		images: [],   必填   传入一个对象数组  对象两个属性  图片链接：imgLink 和  图片地址：imgName
-		controller: {    可填   对象    三个类名(图片容器,按钮,小圆点)
+		controller: {   可填   对象    三个类名(图片容器,按钮,小圆点)
 			view: '.banner-view',
 			btn: '.banner-btn',
 			num: '.banner-number',
 		},
-		size: {}, 必填     容器图片大小
-		auto: true,  可填    是否自动播放,默认自动
-		fnTime: 1000  可填   换图的时间,默认1000毫秒
+		size: {},  必填     容器图片大小
+		autoPlay: true,   可填    是否自动播放,默认自动
+		speed: 1000     可填   换图的时间,默认1000毫秒
 	}
  */
 
