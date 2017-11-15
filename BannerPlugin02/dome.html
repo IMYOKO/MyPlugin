@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>banner插件02</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/banner.css">
+</head>
+<body>
+
+<div class="banner-container" id="banner">
+	<ul class="banner-view">
+		<!--<li>
+			<a href="javascript:;"><img src="images/img01.png"/></a>
+		</li>
+		<li>
+			<a href="javascript:;"><img src="images/img02.png"/></a>
+		</li>
+		<li>
+			<a href="javascript:;"><img src="images/img03.png"/></a>
+		</li>
+		<li>
+			<a href="javascript:;"><img src="images/img04.png"/></a>
+		</li>
+		<li>
+			<a href="javascript:;"><img src="images/img05.png"/></a>
+		</li>-->
+	</ul>
+	<div class="banner-btn"></div>
+	<div class="banner-number"></div>
+</div>
+
+
+<!--js-->
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bannerPlugin.js"></script>
+<script type="text/javascript">
+	$("#banner").bannerPlugin({
+		images: [
+			{
+				imgLink: 'javascript:;',
+				imgName: 'images/img01.png'
+			},
+			{
+				imgLink: 'javascript:;',
+				imgName: 'images/img02.png'
+			},
+			{
+				imgLink: 'javascript:;',
+				imgName: 'images/img03.png'
+			},
+			{
+				imgLink: 'javascript:;',
+				imgName: 'images/img04.png'
+			},
+			{
+				imgLink: 'javascript:;',
+				imgName: 'images/img05.png'
+			},
+		],
+		size: {
+			width: '1000px',
+			height: '560px'
+		},
+		autoPlay: true,
+		speed: 5000
+	});
+	
+</script>
+<!--js end-->
+</body>
+</html>
