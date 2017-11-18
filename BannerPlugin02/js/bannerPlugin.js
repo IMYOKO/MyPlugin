@@ -151,8 +151,8 @@
 			this.$bannerNum.find('span').each(function(){
 				$(this).mouseover(function(){
 					var index = $(this).index();
-					_this.$bannerView.find('li').eq(_this.index).fadeOut(800);
-					_this.$bannerView.find('li').eq(index).fadeIn(800);
+					var moveWidth = -index*parseFloat(_this.width);
+					_this.$bannerView.animate({'left':moveWidth},500);
 					$(this).siblings().removeClass('on');
 					$(this).addClass('on');
 					_this.index = index;
